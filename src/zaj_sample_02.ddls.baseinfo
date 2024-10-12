@@ -3,6 +3,7 @@
 {
 "FROM":
 [
+"ZAY_BOOKING_M",
 "ZAY_TRAVEL_M"
 ],
 "ASSOCIATED":
