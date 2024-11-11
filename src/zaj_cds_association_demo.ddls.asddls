@@ -7,7 +7,7 @@
 define view entity ZAJ_CDS_ASSOCIATION_DEMO
   as select from /dmo/travel as _Travel
 
-  association [1..*] to /dmo/booking as _Booking on _Travel.travel_id = _Booking.travel_id
+  association [1..1] to /dmo/booking as _Booking on _Travel.travel_id = _Booking.travel_id
 
 {
   key travel_id              as TravelId,
@@ -31,3 +31,14 @@ define view entity ZAJ_CDS_ASSOCIATION_DEMO
 
       _Booking
 }
+/*
+[1..*] -> [min..max] of target entity
+Rules
+1. max > min
+2. If no cardinality defined then default will be [0..1] or [1..1] depends on the data available in target entity ([min..1])
+3. If cardinality is given as [n] then [0..n] 
+Example :
+[*] -> [0..*]
+[1] -> [0..1]
+    
+*/
