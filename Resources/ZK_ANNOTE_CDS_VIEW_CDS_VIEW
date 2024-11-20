@@ -1,0 +1,18 @@
+@AbapCatalog.sqlViewName: 'ZK_ANNO_VIEW'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Demo of annotations of CDS View'
+define view ZK_ANNOTE_CDS_VIEW as select from vbak as _Header
+    association [1..*] to vbap as _Item on _Header.vbeln = _Item.vbeln
+{
+    key _Header.vbeln       as SalesDoc,
+    @EndUserText: {
+        label: 'Customer',
+        quickInfo: 'Customer Info'
+    }
+//    @en
+    _Header.kunnr           as Customer,
+    _Item[1:inner].posnr    as ItemNo,
+    _Item
+}
