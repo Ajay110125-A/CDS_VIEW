@@ -19,8 +19,8 @@ CLASS zcl_cds_asso_in_select IMPLEMENTATION.
 
     SELECT
       FROM zaj_asso_inner_join"\_Booking[ (1) ] as Booking "This forms TO One Join
-      FIELDS TravelId, \_Booking[ (1) INNER WHERE flight_price > 100 ]-booking_id as BookingId,
-                        \_Booking[ (1)  INNER WHERE flight_price > 100 ]-flight_price as FlightPrice
+      FIELDS TravelId, \_Booking[ (1) INNER  ]-booking_id AS BookingId, "WHERE flight_price > 500
+                       \_Booking[ (1) INNER  ]-flight_price AS FlightPrice "WHERE flight_price > 100
 *     By keeping same where condition on both _Booking Fields, this system will combine condition into 1 left outer join. If didn't do it
 *     Then it will form left outer join to booking_id, that result left outer joined to flight_price condition
 
@@ -29,8 +29,8 @@ CLASS zcl_cds_asso_in_select IMPLEMENTATION.
 *    join leads to display of empty values, to avoid that use INNER
 
 ***  Without Cardinality (1) we cannot use INNER
-      INTO TABLE @DATA(li_assoc).
-*      UP TO 100 ROWS.
+      INTO TABLE @DATA(li_assoc)
+      UP TO 1000 ROWS.
     IF sy-subrc EQ 0.
 
       out->write(
@@ -42,6 +42,7 @@ CLASS zcl_cds_asso_in_select IMPLEMENTATION.
       )..
 
     ENDIF.
+
 
   ENDMETHOD.
 ENDCLASS.

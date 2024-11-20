@@ -9,6 +9,7 @@ define view entity ZAJ_CDS_ASSOCIATION_DEMO
 
   association [1..*] to /dmo/booking as _Booking on _Travel.travel_id = _Booking.travel_id --WE need to select travel ID because we are doing Association based on Travel ID
   --else WE won't be able to user _Booking Association because Associaton search happens based on the ON condition fields
+  with default filter _Booking.flight_price > 500 --This default is activated only when user doesn't use any filter in Select query on CDS View Refer : ZCL_CDS_ASSO_IN_SELECT
 
 {
   key travel_id     as TravelId,
