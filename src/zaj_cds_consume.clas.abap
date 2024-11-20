@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zaj_cds_consume IMPLEMENTATION.
+CLASS ZAJ_CDS_CONSUME IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

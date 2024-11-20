@@ -7,9 +7,13 @@
 "/DMO/BOOKING"
 ],
 "ASSOCIATED":
-[],
+[
+"/DMO/BOOKING"
+],
 "BASE":
-[],
+[
+"ZAJ_CDS_ASSOCIATION_DEMO"
+],
 "ANNO_REF":
 [],
 "SCALAR_FUNCTION":

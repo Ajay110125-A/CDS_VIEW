@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_aj_consume_03 IMPLEMENTATION.
+CLASS ZCL_AJ_CONSUME_03 IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

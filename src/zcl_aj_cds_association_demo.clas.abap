@@ -12,14 +12,14 @@ ENDCLASS.
 
 
 
-CLASS zcl_aj_cds_association_demo IMPLEMENTATION.
+CLASS ZCL_AJ_CDS_ASSOCIATION_DEMO IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.
 
     SELECT
       FROM zaj_cds_association_demo
-      FIELDS TravelId, BookingID, \_Booking-flight_price
+      FIELDS TravelId, \_Booking-flight_price
       INTO TABLE @DATA(li_association).
 
     out->write( li_association ).

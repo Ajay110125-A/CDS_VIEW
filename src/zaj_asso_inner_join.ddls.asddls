@@ -13,7 +13,7 @@ define view entity ZAJ_ASSO_INNER_JOIN
           key TravelId,
           AgencyId,
       //    CustomerId,
-          _Booking[inner].booking_id
+          _Booking[1:inner].booking_id,
 //          _Booking[ booking_id =  booking_id ].carrier_id  ----We can also give conditions for Association
       //    BeginDate,
       //    EndDate,
@@ -23,7 +23,7 @@ define view entity ZAJ_ASSO_INNER_JOIN
       //    Status,
       //    CreatedBy,
       /* Associations */
-      //    _Booking
+          _Booking
 
 --Inner join With Association _Booking
 //  key travel_id,
