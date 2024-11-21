@@ -1,3 +1,10 @@
+*&---------------------------------------------------------------------*
+*& Report zk_anno_view_demo
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zk_anno_view_demo.
+
 *cl_salv_gui_table_ida=>create_for_cds_view(
 *  EXPORTING
 *    iv_cds_view_name      = 'ZK_ANNOTE_CDS_VIEW'
@@ -30,8 +37,29 @@ cl_demo_output=>write(
     name =   'Entity Annotations'               " Name
 ).
 
-cl_demo_output=>display(
+cl_demo_output=>write(
   EXPORTING
     data =    lt_elemt_annos              " Text or Data
     name =  'Element Annotaion'
 ).
+
+SELECT *
+    FROM zk_annote_cds_view
+    INTO TABLE @DATA(li_data)
+    UP TO 100 ROWS.
+
+*SELECT
+*   FROM zk_annote_cds_view
+*   FIELDS salesdoc, itemno, amount, currenycode,
+*          currency_conversion(
+*                               amount = netwr,
+*                               source_currency = currenycode,
+*                               target_currency = tragetcurrency,
+*                               exchange_rate_date = @sy-datum,
+*                               error_handling = 'SET_TO_NULL'
+*                              )  AS convertedamount
+*    INTO TABLE @DATA(li_data)
+*    UP TO 20 ROWS.
+
+
+cl_demo_output=>display( data = li_data name = 'Unit Conversion' )    .

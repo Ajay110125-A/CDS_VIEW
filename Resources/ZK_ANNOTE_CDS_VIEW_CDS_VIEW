@@ -4,15 +4,103 @@
 @AccessControl.authorizationCheck: #CHECK
 @EndUserText.label: 'Demo of annotations of CDS View'
 define view ZK_ANNOTE_CDS_VIEW as select from vbak as _Header
-    association [1..*] to vbap as _Item on _Header.vbeln = _Item.vbeln
+    association [0..1] to vbap as _Item on _Header.vbeln = _Item.vbeln --IF you want to use _Item fields for where conditon then associaton should be [0..1]
+    
 {
     key _Header.vbeln       as SalesDoc,
     @EndUserText: {
         label: 'Customer',
         quickInfo: 'Customer Info'
     }
-//    @en
     _Header.kunnr           as Customer,
-    _Item[1:inner].posnr    as ItemNo,
+    
+    @Semantics.currencyCode: true
+    _Header.waerk           as CurrenyCode,
+    @Semantics.amount.currencyCode: 'CurrenyCode'
+    _Header.netwr           as Netwr,
+    
+    _Item.posnr    as ItemNo,
+    
+    _Item.matnr             as Material,
+    
+    @Semantics.unitOfMeasure: true
+    _Item.vrkme             as Uom,
+    @Semantics.quantity.unitOfMeasure: 'Uom'
+    _Item.kwmeng            as Quantity,
+    
+    @Semantics.quantity.unitOfMeasure: 'TargetUom'
+    unit_conversion( 
+                     quantity    => _Item.kwmeng, 
+                     source_unit => _Item.vrkme, 
+                     target_unit => cast( 'G' as abap.unit( 3 ) ) ,
+//                     client => cast( '100' as abap.clnt( 3 ) ),--$session.client ---This Client is used when tables doesn't contain client fields
+                     error_handling => 'SET_TO_NULL' --This way error can be handled
+                    ) as ConvertedQuantity,
+                    
+    cast( 'G' as abap.unit( 3 ) ) as TargetUom,
+    
+    @Semantics.amount.currencyCode: 'TargetUom'
+    currency_conversion( 
+                         amount          => _Header.netwr, 
+                         source_currency => _Header.waerk, 
+                         target_currency => cast( 'USD' as abap.cuky( 5 ) ), 
+                         exchange_rate_date => cast( '20241121' as abap.dats ), --$session.system_date
+                         round => 'X', --It will round up the Amount, else it will truncate the rest of the values
+                         error_handling => 'SET_TO_NULL'
+                       ) as ConvertedCurrency,
+                       
+    @Semantics.currencyCode: true                       
+    cast( 'USD' as abap.cuky( 5 ) ) as TragetCurrency,                      
+    
     _Item
+    
 }
+where _Item.vrkme = 'KG' and _Header.waerk = 'INR'
+
+
+
+/*
+Error Handing :
+
+1. 'FAIL_ON_ERROR' : an error raises an exception (by default) ( When this exception called no data is retrived )
+2. 'SET_TO_NULL'   : the result is set you NULL value
+3. 'KEEP_UNCONVERTED : the source is not changed
+
+Optional 
+
+1. exchange_rate_type  : M TCURR-KURST
+2. client                
+3. rount               : 'X'/'TRUE' ( It will round instead of truncation )
+4. error_handling      : 'FAIL_ON_ERROR'
+5. decimal_shift       : 'X'/'TRUE' ( decimal places of the source value are moved 
+6. decimal_shift_back  : 'X'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
