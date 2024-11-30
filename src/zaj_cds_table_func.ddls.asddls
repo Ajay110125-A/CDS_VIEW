@@ -1,6 +1,7 @@
 @EndUserText.label: 'Table function creation demo'
 @ClientHandling.algorithm: #SESSION_VARIABLE
 @ClientHandling.type: #CLIENT_DEPENDENT
+@AccessControl.authorizationCheck: #NOT_REQUIRED
 define table function ZAJ_CDS_TABLE_FUNC
 //  with parameters
     //    @Environment.systemField: #CLIENT
