@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS ZAJ_CDS_CONSUME IMPLEMENTATION.
+CLASS zaj_cds_consume IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.
@@ -24,18 +24,24 @@ CLASS ZAJ_CDS_CONSUME IMPLEMENTATION.
         FIELDS * "TravelID, BookingID, CustomerID
         INTO TABLE @DATA(li_sample).
 
-    IF sy-subrc EQ 0.
+*    IF sy-subrc EQ 0.
+*
+*        out->write(
+*          EXPORTING
+*            data   = li_sample
+**            name   =
+**          RECEIVING
+**            output =
+*        ).
 
-        out->write(
-          EXPORTING
-            data   = li_sample
-*            name   =
-*          RECEIVING
-*            output =
-        ).
+*    ENDIF.
+    DATA : l_date TYPE  /dmo/begin_date .
+    l_date = cl_abap_context_info=>get_system_date(  ).
 
-    ENDIF.
-
+    SELECT
+      FROM zaj_para_cds_view( p_date = '20250806' )
+      FIELDS *
+      INTO TABLE @DATA(li_data).
 *    cl_abap_dbfe
 
   ENDMETHOD.

@@ -20,7 +20,7 @@ define view entity ZAJ_ASSO_PATH_EXPRESSION_1
       _Booking,
       _Carrier,
       _Customer,
-      //      _Status[ inner where language = $session.system_language or language = 'G' ].text as StatusText,
+//            _Status[ inner where language = $session.system_language or language = 'G' ].text as StatusText
       _Status[ 1:language = $session.system_language or language = 'G' ].text as StatusText --To remove the cardinality warning we can give 1:(filter condition) forms to ONE relation.
       --Values : 1 or *. IF * is used then cardinality warning appears
 }

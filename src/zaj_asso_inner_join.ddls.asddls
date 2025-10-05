@@ -3,8 +3,8 @@
 @EndUserText.label: 'Association using Inner Join'
 @Metadata.ignorePropagatedAnnotations: true
 @ObjectModel.usageType:{
-    serviceQuality: #X,
-    sizeCategory: #S,
+    serviceQuality: #(X / D / P ), //Multiple Service qaulities can be used 
+    sizeCategory: #S, //Multiple Size category can be used 
     dataClass: #MIXED
 }
 define view entity ZAJ_ASSO_INNER_JOIN

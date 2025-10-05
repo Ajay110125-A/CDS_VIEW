@@ -25,7 +25,7 @@ define view entity ZAJ_ASSO_PATH_EXPRESSION
 
       _Customer[inner].last_name as LastName,  --[inner] helps us to get only the data where there is customer info is available. This way we can do inner join on table 
       //      _Status[language = $session.system_language ].text as StatusText,
-      //      _Carrier.name                                      as CarrierName,
+//            _Carrier.name                                      as CarrierName,
 
       _Customer,
       _Carrier,
